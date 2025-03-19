@@ -14,7 +14,6 @@
     "elevenlabs"
   ],
   "version": "0.0.1",
-  "private": true,
   "type": "module",
   "main": "./nuxt.config.ts",
   "scripts": {
