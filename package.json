@@ -1,5 +1,18 @@
 {
   "name": "nuxt-content-narrator",
+  "keywords": [
+    "nuxt",
+    "content",
+    "text-to-speech",
+    "nuxt content",
+    "narrator",
+    "narration",
+    "audio",
+    "tts",
+    "text-to-speech",
+    "text-to-speech-api",
+    "elevenlabs"
+  ],
   "version": "0.0.1",
   "private": true,
   "type": "module",
