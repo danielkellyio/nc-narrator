@@ -1,0 +1,24 @@
+{
+  "name": "nuxt-content-narrator",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@nuxt/content": "3.3.0",
+    "@nuxt/eslint": "1.2.0",
+    "@vueuse/nuxt": "^13.0.0",
+    "nuxt": "^3.16.0",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0",
+    "elevenlabs": "^1.54.0"
+  },
+  "devDependencies": {
+    "eslint": "^9.0.0"
+  }
+}
