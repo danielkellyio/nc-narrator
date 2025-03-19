@@ -2,6 +2,8 @@
 
 A Nuxt layer that provides text-to-speech narration capabilities for Nuxt Content pages.
 
+![Nuxt Content Narrator Demo](./nuxt-content-narrator-demo.mp4)
+
 ## Quick Start
 
 1. Install the layer and extend it
