@@ -4,26 +4,24 @@ A Nuxt layer that provides text-to-speech narration capabilities for Nuxt Conten
 
 ## Quick Start
 
-1. Install the layer
+1. Install the layer and extend it
+
+```bash
+npm i nuxt-content-narrator
+```
 
 ```typescript
 // nuxt.config.ts
-extends: ["github:danielkellyio/nc-narrator"],
+extends: ["nuxt-content-narrator"],
 ```
 
-2. Install Peer dependencies
-
-```bash
-npm install @nuxt/content @vueuse/nuxt
-```
-
-3. Get your [ElevanLabs](http://elevenlabs.io/) API key and set as an environment variable
+2. Get your [ElevanLabs](http://elevenlabs.io/) API key and set as an environment variable
 
    ```
    NUXT_ELEVENLABS_API_KEY=sk_xxx
    ```
 
-4. Add the NcNarrator components to your content pages
+3. Add the NcNarrator components to your content pages
 
 ```html
 <script setup lang="ts">
@@ -62,14 +60,13 @@ The core service component that manages the text-to-speech functionality and sta
 
 **Props:**
 
-- `collectionItem`: (Required) A Nuxt Content page collection item that includes the `rawbody` property
+- `collectionItem`: (Required) A Nuxt Content page collection item that includes the `rawbody` property ([read more about rawbody here](https://content.nuxt.com/docs/advanced/raw-content))
 - `voiceId`: (Optional) The ID of the ElevenLabs voice to use for narration (Visit https://elevenlabs.io/app/voice-lab to browse all Elevan labs voices, click "View" button, and get the voiceId from the url )
 
 **Features:**
 
 - Manages audio playback state
 - Handles audio generation through ElevenLabs API
-- Provides context to child components through Vue's provide/inject system
 
 ### 2. NcNarratorPlayer
 
@@ -83,13 +80,29 @@ A customizable audio player component that provides playback controls.
 
 - Play/pause controls
 - Progress bar with current time and duration
-- Responsive design with container queries
-- Customizable styling
 - Slot-based API for custom player UI
+
+**Customize with Default Slot**
+
+```html
+<NcNarratorPlayer
+  v-slot="{ 
+    play, // function to play the audio
+    pause, // function to pause the audio
+    toggle, // function to toggle the audio
+    playing, // boolean to check if the audio is playing
+    currentTime, // number to get the current time of the audio
+    duration, // number to get the duration of the audio
+    percentComplete // number to get the percent complete of the audio
+  }"
+>
+  <!-- Your custom player UI -->
+</NcNarratorPlayer>
+```
 
 ### 3. NcNarratorFollowAlongRenderer
 
-A component that renders text with synchronized highlighting during audio playback.
+An optional component that renders text with synchronized highlighting during audio playback. If you don't need synchronized highlighting, you can use the regular Nuxt Content <ContentRenderer /> component.
 
 **Props:**
 
@@ -105,13 +118,21 @@ A component that renders text with synchronized highlighting during audio playba
 
 ### 4. NcNarratorDevTools
 
-Development tools component for audio generation and testing in development.
+Development tools component for audio generation in development.
+
+```html
+<!-- 
+ Only visible in development mode 
+ Displays a button to generate audio for the current page
+ -->
+<NcNarratorDevTools />
+```
 
 ## Usage
 
 1. Wrap your content with the `NcNarratorService`:
 
-```vue
+```html
 <template>
   <NcNarratorService :collection-item="page">
     <!-- Your content and other narrator components -->
@@ -121,7 +142,7 @@ Development tools component for audio generation and testing in development.
 
 2. Add the player component:
 
-```vue
+```html
 <template>
   <NcNarratorService :collection-item="page">
     <NcNarratorPlayer />
@@ -132,14 +153,15 @@ Development tools component for audio generation and testing in development.
 
 3. Use the follow-along renderer for synchronized text highlighting:
 
-```vue
+```html
 <template>
   <NcNarratorService :collection-item="page">
     <NcNarratorPlayer />
     <NcNarratorFollowAlongRenderer />
 
-    <-- or if you only need the audio and not the highlighting use the regular
-    Nuxt Content <ContentRenderer />
+    <!-- 
+     or if you only need the audio and not the highlighting use the regular
+    Nuxt Content <ContentRenderer/> copmonent
     -->
   </NcNarratorService>
 </template>
@@ -159,23 +181,13 @@ The components come with minimal default styling and can be customized using the
 
 ## Development
 
-To use the development tools:
+To help contribute to the project, you can clone the repo and install the layer by pointing your `extends` to the local path from another Nuxt project.
 
-1. Import the `NcNarratorDevTools` component
-2. Place it within the `NcNarratorService` component
-3. The tools will only be visible in development mode
-
-```vue
-<template>
-  <NcNarratorService :collection-item="page">
-    <NcNarratorDevTools />
-    <!-- Other components -->
-  </NcNarratorService>
-</template>
+```typescript
+// nuxt.config.ts
+extends: ["../../nuxt-content-narrator"],
 ```
 
-## Deploying to Prod
+## Deploying to Production
 
-## Notes
-
-- Ensure that your Nuxt Content configuration includes the `rawbody` in the page data
+Just like your content, the audio is stored in the github repo. It is generated with the button in the `NcNarratorDevTools` component and stored in the `audio` folder.
